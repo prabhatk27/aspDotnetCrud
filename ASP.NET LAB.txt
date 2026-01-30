@@ -1,0 +1,144 @@
+﻿ASP.NET Core Web App(MVC) using Entity Framework [Crud operation Steps]
+-------------------------------------------------------------------------------------------------------------------------------
+🔹 Method 1: Manual Setup (MVC + Entity Framework)
+
+
+Create a New Project---->>
+1.Select ASP.NET Core Web App (Model-View-Controller)
+2.Enter Project Name
+3.Right Click on Project in solution Explorer 
+     -->Go to NuGet Package manager(Acc. to your requirement)
+*        Microsoft.EntityFrameworkCore
+*        Microsoft.EntityFrameworkCore.Sql
+*        Microsoft.EntityFrameworkCore.Design
+*        Microsoft.VisualStudio.Web.CodeGeneration.Design
+*        Microsoft.EntityFrameworkCore.Tools
+4.Right Click on Models -> Add-> New Item -> New_model.cs
+5.Go to Controller --> Add --> Controller -->
+*       Select MVC Controller with views using Entity Framework-->Add
+*       Select model class of your project--->
+*       Go to dbContextClass --> + Sign --> Add db context --> click Add
+6. Configure Database Connection:  Go to appsetting.json --> 
+*  Open appsettings.json 
+* Update the connection string:
+ "ConnectionStrings": {
+  "DefaultConnection": "Server=YOUR_SERVER_NAME;Database=YourDB;Trusted_Connection=True;
+TrustServerCertificate=True;"
+}
+7.Add Navigation Link (Optional)
+* Go to:
+Views → Shared → _Layout.cshtml
+* Add the following inside the navbar:
+<li class="nav-item">
+    <a class="nav-link text-dark" asp-controller="Students"
+       asp-action="Index"> Student Management </a>
+</li>
+8.Apply Migration
+   * Open Tools → NuGet Package Manager → Package Manager Console
+   * Run:
+     Add-Migration Init
+                 Update-Database
+ 
+9. Now,Run the Application 🚀
+________________
+
+
+ 
+✨ Final Notes
+      * Scaffolded approach is faster and recommended for beginners.
+
+      * Manual approach gives more control over architecture.
+
+      * Always match EF Core version with your .NET version.
+________________
+🔹 Method 2: Using Scaffolded Items (Faster Way)
+
+
+
+
+Create a New Project---->>
+1.Select ASP.NET Core Web App (Model-View-Controller)
+2.Enter Project Name
+3.Right Click on Models -> Add-> New Item -> New_model.cs
+4.Right-click on Controllers -->Select Add → New Scaffolded Item
+         *     Choose MVC Controller with views, using Entity Framework
+         *      Select model class of your project--->
+         *      Go to dbContextClass --> + Sign --> Add db context --> click Add
+
+
+5.Add Navigation Link (Optional)
+         * Go to:
+Views → Shared → _Layout.cshtml
+         * Add the following inside the navbar:
+<li class="nav-item">
+    <a class="nav-link text-dark" asp-controller="Students"
+       asp-action="Index"> Student Management </a>
+</li>
+
+
+6.Apply Migration
+            * Open Tools → NuGet Package Manager → Package Manager Console
+            * Run:
+     Add-Migration Init
+                 Update-Database
+ 
+7. Now,Run the Application 🚀
+________________
+________________
+
+
+ Class Method….
+Required Packages- IF using Microsoft Visual Studio 2022 then use versions 9.X.X
+1. Microsoft.EntityFrameworkCore
+2. Microsoft.EntityFrameworkCore.SqlServer
+3. Microsoft.EntityFrameworkCore.Tools
+4. Microsoft.VisualStudio.Web.CodeGeneration.Design if fails then use v8.x.x
+
+
+Product MVC Web APP
+
+
+1. Create New Project
+2. Select ASP .NET Core Web App (Model-View-Controller) Template
+3. MVC folders auto-created.
+4. Right Click on Models -> Add-> New Item -> file_name.cs
+5. Models → Add → Class → ProductContext.cs
+6. Add DB Connection String in appsettings.json for localdb
+
+
+  "ConnectionStrings": {
+    "ProductDB": "Server=(localdb)\\MSSQLLocalDB;Database=ProductDB;Trusted_Connection=True;"
+  }
+
+
+7. Add this in Program.cs just after builder.Services.AddControllersWithViews();
+
+
+builder.Services.AddDbContext<ProductContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("ProductDB")));
+
+
+8. Run in Package Manager Console: Tools → NuGet Package Manager → Package Manager Console
+Add-Migration InitialCreate
+Update-Database
+
+
+9. Controllers → Right Click -> Add → Controller
+   Select: MVC Controller with views, using Entity Framework
+
+
+10. Click Add
+
+
+11. Select Model Class -> Product
+
+
+12. Select DBContext class -> ProductContext 
+
+
+13. Click Add
+
+
+All the Views (CRUD) with ProductController are created successfully.
+14. Run application using IIS Express 
+15. Enter /Products in the browser -> https://localhost:44332/products
